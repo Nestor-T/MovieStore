@@ -4,12 +4,12 @@ namespace MovieStoreB.DL.DB
 {
     internal static class StaticData
     {
-        
+
         public static List<Movie> Movies = new List<Movie>
         {
             new Movie
             {
-                Id = 1, 
+                Id = 1,
                 Title = "The Shawshank Redemption",
                 Year = 1994
             },
@@ -21,6 +21,10 @@ namespace MovieStoreB.DL.DB
             {
                 Id = 3, Title = "The Dark Knight", Year = 2008
             },
+            new Movie
+            {
+                Id = 4, Title ="The Matrix", Year = 1999
+            }
         };
     }
 }
