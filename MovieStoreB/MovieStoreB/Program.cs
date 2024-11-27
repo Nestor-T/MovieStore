@@ -1,5 +1,8 @@
+using Mapster;
 using MovieStoreB.BL;
 using MovieStoreB.DL;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,11 @@ builder.Services
     .AddDataDependencies()
     .AddBusinessDependencies();
 
+var logger = new LoggerConfiguration().Enrich.FromLogContext()
+    .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+    .CreateLogger();
 
+builder.Services.AddMapster();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
