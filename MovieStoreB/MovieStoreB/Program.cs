@@ -1,17 +1,18 @@
-using MovieStoreB.DL.Interfaces;
-using MovieStoreB.DL.Repositories;
-using Microsoft.Extensions.DependencyInjection;
-
+using MovieStoreB.BL;
+using MovieStoreB.DL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services
+    .AddDataDependencies()
+    .AddBusinessDependencies();
 
-builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 
-builder.Services.AddBL();
 
 var app = builder.Build();
 
