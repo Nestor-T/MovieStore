@@ -11,19 +11,27 @@ namespace MovieStoreB.DL.Repositories
             return StaticData.Movies;
         }
 
-        void AddMovie(Movie movie)
+        public void AddMovie(Movie movie)
         {
             StaticData.Movies.Add(movie);
         }
-
-        void DeletedMoive(Movie movie)
+        public void DeleteMovie(int id)
         {
-            StaticData.Movies.Remove(movie);
+            if (id <= 0) return;
+
+            var movie = GetMoviesById(id);
+
+            if (movie != null)
+            {
+                StaticData.Movies.Remove(movie);
+            }
         }
-
-        public Movie? GetMovieById(int id)
+        public Movie? GetMoviesById(int id)
         {
-            return StaticData.Movies.FirstOrDefault(x => x.Id == id);
+            if (id <= 0) return null;
+
+            return StaticData.Movies
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }

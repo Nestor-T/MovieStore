@@ -9,8 +9,8 @@ namespace MovieStoreB.DL.Interfaces
 
         void AddMovie(Movie movie);
 
-        void DeleteMovie(Movie movie);
+        void DeleteMovie(int id);
 
-        Movie GetMoviesById(int id);
+        Movie? GetMoviesById(int id);
     }
 }
