@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Mapster;
 using MovieStoreB.BL;
 using MovieStoreB.DL;
@@ -16,6 +17,8 @@ var logger = new LoggerConfiguration().Enrich.FromLogContext()
     .CreateLogger();
 
 builder.Services.AddMapster();
+
+builder.Services.AddFluentValidation();
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
