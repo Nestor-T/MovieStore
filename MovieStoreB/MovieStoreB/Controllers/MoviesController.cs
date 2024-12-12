@@ -2,7 +2,7 @@ using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieStoreB.BL.Interfaces;
 using MovieStoreB.Models.DTO;
-using MovieStoreB.Models.DTO.Requests;
+using MovieStoreB.Models.Requests;
 
 namespace MovieStoreB.Controllers
 {
@@ -14,7 +14,10 @@ namespace MovieStoreB.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<MoviesController> _logger;
 
-        public MoviesController(IMovieService movieService, IMapper mapper, ILogger<MoviesController> logger = null)
+        public MoviesController(
+            IMovieService movieService,
+            IMapper mapper,
+            ILogger<MoviesController> logger)
         {
             _movieService = movieService;
             _mapper = mapper;
@@ -24,14 +27,21 @@ namespace MovieStoreB.Controllers
         [HttpGet("GetAll")]
         public IEnumerable<Movie> GetAll()
         {
+            try
+            {
+                //code
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Error in GetAll {e.Message}-{e.StackTrace}");
+            }
             return _movieService.GetMovies();
-            _logger.LogInformation("GetAll movies");
-            _logger.LogWarning("GetAll movies");
-            _logger.LogDebug("GetAll movies");
-            _logger.LogCritical("GetAll movies");
         }
 
         [HttpGet("GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetById(int id)
         {
             if (id <= 0) return BadRequest();
@@ -45,9 +55,11 @@ namespace MovieStoreB.Controllers
         }
 
         [HttpPost("AddMovie")]
-        public void AddMovieRequest([FromBody]Movie movieRequest)
+        public void AddMovie(
+            [FromBody]AddMovieRequest movieRequest)
         {
             var movie = _mapper.Map<Movie>(movieRequest);
+
             _movieService.AddMovie(movie);
         }
 

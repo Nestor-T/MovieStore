@@ -1,24 +1,18 @@
 ﻿using MovieStoreB.BL.Interfaces;
 using MovieStoreB.DL.Interfaces;
-using MovieStoreB.Models.DTO.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MovieStoreB.Models.Responses;
 
 namespace MovieStoreB.BL.Services
 {
     internal class BlMovieService : IBlMovieService
-
     {
         private readonly IMovieService _movieService;
         private readonly IActorRepository _actorRepository;
 
-        public BlMovieService(IBlMovieService movieService)
+        public BlMovieService(IMovieService movieService, IActorRepository actorRepository)
         {
-            _movieService = _movieService;
-            _actorRepository = _actorRepository;
+            _movieService = movieService;
+            _actorRepository = actorRepository;
         }
 
         public List<FullMovieDetails> GetAllMovieDetails()
@@ -26,11 +20,22 @@ namespace MovieStoreB.BL.Services
             var result = new List<FullMovieDetails>();
 
             var movies = _movieService.GetMovies();
-        }
+            //За всеки филм взимате автор по Id и го добавяте в result
 
-        List<FullMovieDetails> IBlMovieService.GetAllMovieDetails()
-        {
-            throw new NotImplementedException();
+            foreach (var movie in movies)
+            {
+                var movieDetails = new FullMovieDetails();
+                movieDetails.Title = movie.Title;
+                movieDetails.Year = movie.Year;
+                movieDetails.Id = movie.Id;
+
+                foreach (var actorId in movie.Actors)
+                {
+                    var actor = _actorRepository.GetById(actorId);
+                }
+
+            }
+            return result;
         }
     }
 }

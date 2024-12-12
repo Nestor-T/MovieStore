@@ -6,11 +6,11 @@ namespace MovieStoreB.BL
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddBusinessDependencies(this IServiceCollection services)
+        public static IServiceCollection 
+            AddBusinessDependencies(this IServiceCollection services)
         {
             services.AddSingleton<IMovieService, MovieService>();
-            services.AddSingleton<IActorService, ActorService>();
-
+           
             return services;
         }
     }
