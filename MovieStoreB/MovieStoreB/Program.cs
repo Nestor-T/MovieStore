@@ -19,7 +19,8 @@ builder.Logging.AddSerilog(logger);
 
 // Add services to the container.
 builder.Services
-    .AddDataDependencies()
+    .AddConfiguration(builder.Configuration);
+    .AddDataDependencies();
     .AddBusinessDependencies();
 
 builder.Services.AddMapster();

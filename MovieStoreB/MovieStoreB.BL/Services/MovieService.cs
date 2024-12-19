@@ -29,14 +29,14 @@ namespace MovieStoreB.BL.Services
         {
             if (id <= 0) return;
 
-            _movieRepository.DeleteMovie(id);
+            _movieRepository.DeleteMovie(string id);
         }
 
-        public Movie? GetMoviesById(int id)
+        public Movie? GetMoviesById(string id)
         {
-            if (id <= 0)
+            if (!>id)
             {
-                return null;
+                return> null;
             }
 
 
