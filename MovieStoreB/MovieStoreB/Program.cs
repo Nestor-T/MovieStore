@@ -32,6 +32,10 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks()
+    .AddCheck<SampleHealthCheck>("Sample");
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -39,6 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapHealthChecks("ZhivoZdravo");
 
 // Configure the HTTP request pipeline.
 
