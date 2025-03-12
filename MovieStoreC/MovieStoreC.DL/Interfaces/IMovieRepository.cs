@@ -4,6 +4,7 @@ namespace MovieStoreC.DL.Interfaces
 {
     public interface IMovieRepository
     {
+
         Task<List<Movie>> GetAll();
 
         Task<Movie?> GetById(string id);

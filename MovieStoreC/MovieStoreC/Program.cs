@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Mapster;
+using MovieStoreC.BackgroundServices;
 using MovieStoreC.BL;
 using MovieStoreC.BL.Interfaces;
 using MovieStoreC.DL;
@@ -23,14 +24,16 @@ namespace MovieStoreC
             // Add services to the container.
             builder.Services
                 .RegisterRepositories()
-                .RegisterServices();
+                .RegisterServices()
+                .AddHostedService<TestHostedService>()
+                .AddHostedService<TestBgService>();
+            
 
             builder.Services.AddMapster();
 
             builder.Services.AddControllers();
 
-            builder.Services
-                .AddValidatorsFromAssemblyContaining<TestValidator>();
+            //builder.Services.AddValidatorsFromAssemblyContaining<TestValidator>();
             builder.Services.AddFluentValidationAutoValidation();
 
             builder.Services.AddSwaggerGen();

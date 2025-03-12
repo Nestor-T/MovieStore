@@ -35,7 +35,7 @@ namespace MovieStoreC.BL.Services
             await _movieRepository.Add(movie);
         }
 
-        public void AddActorToMovie(string movieId, string actorId)
+        public async Task AddActorToMovie(string movieId, string actorId)
         {
             if (string.IsNullOrEmpty(movieId) || string.IsNullOrEmpty(actorId))
             {
@@ -49,7 +49,7 @@ namespace MovieStoreC.BL.Services
                 return;
             }
 
-            var movie = _movieRepository.GetById(movieId);
+            var movie = await _movieRepository.GetById(movieId);
 
             if (movie == null)
             {
@@ -57,7 +57,7 @@ namespace MovieStoreC.BL.Services
                 return;
             }
 
-            var actor = _actorRepository.GetById(actorId);
+            var actor = await _actorRepository.GetById(actorId);
 
             if (actor == null)
             {
@@ -72,19 +72,19 @@ namespace MovieStoreC.BL.Services
 
             movie.Actors.Add(actorId);
 
-            _movieRepository.Update(movie);
+            await _movieRepository.Update(movie);
         }
 
-        public List<Movie> GetAll()
+        public async Task <List<Movie>> GetAll()
         {
-            return _movieRepository.GetAll();
+            return await _movieRepository.GetAll();
         }
 
-        public Movie? GetById(string id)
+        public async Task <Movie> GetById(string id)
         {
             if (string.IsNullOrEmpty(id) || !Guid.TryParse(id, out _)) return null;
 
-            return _movieRepository.GetById(id);
+            return await _movieRepository.GetById(id);
         }
 
 

@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using MovieStoreC.DL.Interfaces;
 using MovieStoreC.Models.Configurations;
 using MovieStoreC.Models.DTO;
+using System.Runtime.InteropServices;
 
 namespace MovieStoreC.DL.Repositories.MongoDb
 {
@@ -26,24 +27,18 @@ namespace MovieStoreC.DL.Repositories.MongoDb
             _moviesCollection = database.GetCollection<Movie>("MoviesDb");
         }
 
-        public async Task<List<Movie>> GetAll(int year)
+        public async Task<List<Movie>> GetAll()
         {
-            var result = await _moviesCollection.FindAsync(m => m.Year == year);
+            var result = await _moviesCollection.FindAsync(m => true);
 
             return await result.ToListAsync();
         }
 
-        public async Task<List<Movie>> GetAll()
+        public async Task<Movie?> GetById(string id)
         {
-            return _moviesCollection.Find(m => true)
-                .ToList();
-        }
+            var result = await _moviesCollection.FindAsync(m => m.Id == id);
 
-        public Task<Movie?> GetById(string id)
-        {
-            return _moviesCollection
-                .Find(m => m.Id == id)
-                .FirstOrDefault();
+        return  await result.FirstOrDefaultAsync();
         }
 
         public async Task Add(Movie? movie)
@@ -65,7 +60,7 @@ namespace MovieStoreC.DL.Repositories.MongoDb
             }
         }
 
-        public void Update(Movie movie)
+        public async Task Update(Movie movie)
         {
             _moviesCollection.ReplaceOne(m => m.Id == movie.Id, movie);
         }
