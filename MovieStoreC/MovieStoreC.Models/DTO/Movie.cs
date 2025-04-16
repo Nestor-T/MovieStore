@@ -9,5 +9,7 @@
         public int Year { get; set; }
 
         public List<string> Actors { get; set; }
+
+        public DateTime DateInserted { get; set; }
     }
 }

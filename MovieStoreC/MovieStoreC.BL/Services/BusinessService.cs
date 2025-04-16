@@ -30,7 +30,8 @@ namespace MovieStoreC.BL.Services
                 {
                     Id = movie.Id,
                     Title = movie.Title,
-                    Year = movie.Year
+                    Year = movie.Year,
+                    DateInserted = movie.DateInserted
                 };
 
                 //var tasks = new List<Task<Actor>>();
