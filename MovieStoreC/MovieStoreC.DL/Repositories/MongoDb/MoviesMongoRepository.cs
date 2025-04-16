@@ -64,5 +64,12 @@ namespace MovieStoreC.DL.Repositories.MongoDb
         {
             _moviesCollection.ReplaceOne(m => m.Id == movie.Id, movie);
         }
+
+        public async Task<IEnumerable<Movie>> GetAllMoviesAterDateTime(DateTime date)
+        {
+            var result = _moviesCollection.FindAsync(m => m.DateInserted >= date);
+
+            return await result.ToListAsync();
+        }
     }
 }
