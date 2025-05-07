@@ -4,7 +4,7 @@ using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Cache
 {
-    public class MongoCachePopulator<TData, TDataRepository, TConfigurationType, TKey> : BackgroundService 
+    public class ActorCachePopulator<TData, TDataRepository, TConfigurationType, TKey> : BackgroundService 
         where TDataRepository : ICacheRepository<TData>
         where TData : CacheItem<TKey>
         where TConfigurationType : CacheConfiguration
@@ -12,12 +12,12 @@ namespace MovieStoreB.DL.Cache
         private readonly ICacheRepository<TData> _cacheRepository;
         private readonly IOptionsMonitor<TConfigurationType> _configuration;
 
-        public MongoCachePopulator(ICacheRepository<TData> cacheRepository, IOptionsMonitor<TConfigurationType> configuration)
+        public ActorCachePopulator(ICacheRepository<TData> cacheRepository, IOptionsMonitor<TConfigurationType> configuration)
         {
             _cacheRepository = cacheRepository;
             _configuration = configuration;
         }
-
+        
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var lastExecuted = DateTime.UtcNow;
@@ -28,14 +28,14 @@ namespace MovieStoreB.DL.Cache
             {
                 await Task.Delay(TimeSpan.FromSeconds(_configuration.CurrentValue.RefreshInterval), stoppingToken);
 
-                var updatedData = await _cacheRepository.DifLoad(lastExecuted);
+                var updatedActors = await _cacheRepository.DifLoad(lastExecuted);
 
-                if (updatedData == null || !updatedData.Any())
+                if (updatedActors == null || !updatedActors.Any())
                 {
                     continue;
                 }
 
-                var lastUpdated = updatedData.Last()?.DateInserted;
+                var lastUpdated = updatedActors.Last()?.DateInserted;
 
                 lastExecuted = lastUpdated ?? DateTime.UtcNow;
 

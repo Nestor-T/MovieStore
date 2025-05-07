@@ -1,6 +1,6 @@
 ﻿namespace MovieStoreB.Models.DTO
 {
-    public record Movie
+    public record Movie : CacheItem<string>
     {
         public string Id { get; set; }
 
@@ -10,6 +10,9 @@
 
         public List<string> ActorIds { get; set; }
 
-        public DateTime DateInserted { get; set; }
+        public override string GetKey()
+        {
+            return Id;
+        }
     }
 }
