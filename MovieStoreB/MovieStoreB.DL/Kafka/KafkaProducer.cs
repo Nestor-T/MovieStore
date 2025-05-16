@@ -4,7 +4,7 @@ using MovieStoreB.Models.Serialization;
 
 namespace MovieStoreB.DL.Kafka
 {
-    internal class KafkaProducer<TKey, TData> : IKafkaProducer<TData> where TData : CacheItem<TKey> where TKey : notnull
+    internal class KafkaProducer<TKey, TData> : IKafkaProducer<TData> where TData : ICacheItem<TKey> where TKey : notnull
     {
         private readonly ProducerConfig _config;
         private readonly IProducer<TKey, TData> _producer;

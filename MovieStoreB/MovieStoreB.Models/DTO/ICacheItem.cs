@@ -1,6 +1,6 @@
 ﻿namespace MovieStoreB.Models.DTO
 {
-    public abstract record CacheItem<T>
+    public interface ICacheItem<T>
     {
         public DateTime DateInserted { get; set; }
 
