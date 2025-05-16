@@ -42,6 +42,11 @@ namespace MovieStoreB.DL.Repositories.MongoRepositories
             return await result.ToListAsync();
         }
 
+        public Task<IEnumerable<Actor>> GetAllActors()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Actor?> GetById(string id)
         {
             var result = await _actorsCollection.FindAsync(m => m.Id == id);

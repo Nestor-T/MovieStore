@@ -22,6 +22,7 @@ namespace MovieStoreB.DL
             services.AddCache<MoviesCacheConfiguration, MoviesRepository, Movie, string>(config);
             services.AddCache<ActorsCacheConfiguration, ActorMongoRepository, Actor, string>(config);
 
+            services.AddHostedService<KafkaCache<string, Movie>>();
             //services.AddHostedService<MongoCachePopulator<Movie, IMovieRepository>>();
 
             return services;
@@ -30,7 +31,7 @@ namespace MovieStoreB.DL
         public static IServiceCollection AddCache<TCacheConfiguration, TCacheRepository, TData, TKey>(this IServiceCollection services, IConfiguration config)
            where TCacheConfiguration : CacheConfiguration
            where TCacheRepository : class, ICacheRepository<TData>
-           where TData : CacheItem<TKey>
+           where TData : ICacheItem<TKey>
            where TKey : notnull
         {
             var configSection = config.GetSection(typeof(TCacheConfiguration).Name);

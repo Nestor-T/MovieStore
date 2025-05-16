@@ -6,7 +6,7 @@ namespace MovieStoreB.DL.Cache
 {
     public class ActorCachePopulator<TData, TDataRepository, TConfigurationType, TKey> : BackgroundService 
         where TDataRepository : ICacheRepository<TData>
-        where TData : CacheItem<TKey>
+        where TData : ICacheItem<TKey>
         where TConfigurationType : CacheConfiguration
     {
         private readonly ICacheRepository<TData> _cacheRepository;
