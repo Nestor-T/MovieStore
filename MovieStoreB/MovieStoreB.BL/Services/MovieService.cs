@@ -1,4 +1,5 @@
 ﻿using MovieStoreB.BL.Interfaces;
+using MovieStoreB.DL.ExternalGateways;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.Models.DTO;
 
@@ -8,8 +9,9 @@ namespace MovieStoreB.BL.Services
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IActorRepository _actorRepository;
+        private readonly IActorBioGateway _bioActorGateway;
 
-        public MovieService(IMovieRepository movieRepository, IActorRepository actorRepository)
+        public MovieService(IMovieRepository movieRepository, IActorRepository actorRepository, IActorBioGateway actorBioGateway)
         {
             _movieRepository = movieRepository;
             _actorRepository = actorRepository;
@@ -17,6 +19,7 @@ namespace MovieStoreB.BL.Services
 
         public async Task<List<Movie>> GetMovies()
         {
+            var test = await _bioActorGateway.GetBioByActorId("1234567890");
             return await _movieRepository.GetMovies();
         }
 

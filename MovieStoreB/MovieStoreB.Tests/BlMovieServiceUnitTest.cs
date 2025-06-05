@@ -1,6 +1,7 @@
 using Moq;
 using MovieStoreB.BL.Interfaces;
 using MovieStoreB.BL.Services;
+using MovieStoreB.DL.ExternalGateways;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.Models.DTO;
 
@@ -10,6 +11,7 @@ namespace MovieStoreB.Tests
     {
         private readonly Mock<IMovieService> _movieServiceMock;
         private readonly Mock<IActorRepository> _actorRepositoryMock;
+        private readonly Mock<IActorBioGateway> _actorBioGateway;
 
         private List<Movie> _movies = new List<Movie>()
         {
@@ -36,17 +38,14 @@ namespace MovieStoreB.Tests
 
         private List<Actor> _actors = new List<Actor>
         {
-            new Actor(default, default) {
+            new Actor() {
                 Id = "157af604-7a4b-4538-b6a9-fed41a41cf3a",
-                Name = "Actor 1"
             },
-            new Actor(default, default) {
+            new Actor() {
                 Id = "baac2b19-bbd2-468d-bd3b-5bd18aba98d7",
-                Name = "Actor 2"
             },
-            new Actor(default, default) {
+            new Actor() {
                 Id = "5c93ba13-e803-49c1-b465-d471607e97b3",
-                Name = "Actor 3"
             },
         };
 
@@ -54,6 +53,7 @@ namespace MovieStoreB.Tests
         {
             _movieServiceMock = new Mock<IMovieService>();
             _actorRepositoryMock = new Mock<IActorRepository>();
+            _actorBioGateway = new Mock<IActorBioGateway>();
         }
 
         [Fact]

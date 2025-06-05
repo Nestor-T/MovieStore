@@ -8,7 +8,6 @@ namespace MovieStoreB.Models.DTO
         [Key(0)]
         public string Id { get; set; }
 
-
         [Key(1)]
         public string Title { get; set; }
 
@@ -19,9 +18,9 @@ namespace MovieStoreB.Models.DTO
         public List<string> ActorIds { get; set; }
 
         [Key(4)]
-        public DateTime DateInserted { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime DateInserted { get; set; }
 
-        public override string GetKey()
+        public string GetKey()
         {
             return Id;
         }

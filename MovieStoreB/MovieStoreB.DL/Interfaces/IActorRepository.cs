@@ -3,10 +3,10 @@ using MovieStoreB.Models.DTO;
 
 namespace MovieStoreB.DL.Interfaces
 {
-    public interface IActorRepository : ICacheRepository<Actor>
+    public interface IActorRepository : ICacheRepository<string, Actor>
     {
         Task<Actor?> GetById(string id);
 
-        Task<IEnumerable<Actor>> GetAllActors();
+        Task<IEnumerable<Actor?>> GetAllActors();
     }
 }
