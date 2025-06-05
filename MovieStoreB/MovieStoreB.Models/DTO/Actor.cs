@@ -1,8 +1,21 @@
-﻿namespace MovieStoreB.Models.DTO
+﻿
+using MessagePack;
+
+namespace MovieStoreB.Models.DTO
 {
-    public record Actor(string Id, string Name) : ICacheItem<string>
+    [MessagePackObject]
+    public record Actor : ICacheItem<string>
     {
-        public override string GetKey()
+        [Key(0)]
+        public string Id { get; set; }
+        
+        [Key(1)]
+        public DateTime DateInserted { get; set; }
+
+        [Key(2)]
+        public string Bio { get; set; }
+
+        public string GetKey()
         {
             return Id;
         }

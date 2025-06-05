@@ -1,6 +1,7 @@
 ﻿using Moq;
 using MovieStoreB.BL.Interfaces;
 using MovieStoreB.BL.Services;
+using MovieStoreB.DL.ExternalGateways;
 using MovieStoreB.DL.Interfaces;
 using MovieStoreB.Models.DTO;
 
@@ -10,6 +11,7 @@ namespace MovieStoreB.Tests
     {
         private readonly Mock<IMovieRepository> _movieRepositoryMock;
         private readonly Mock<IActorRepository> _actorRepositoryMock;
+        private readonly Mock<IActorBioGateway> _actorBioGatewayMock;
 
         private List<Movie> _movies = new List<Movie>()
         {
@@ -54,6 +56,7 @@ namespace MovieStoreB.Tests
         {
             _actorRepositoryMock = new Mock<IActorRepository>();
             _movieRepositoryMock = new Mock<IMovieRepository>();
+            _actorBioGatewayMock = new Mock<IActorBioGateway>();
         }
 
         [Fact]
@@ -66,7 +69,7 @@ namespace MovieStoreB.Tests
                     .Returns((string id) =>
                         _movies.FirstOrDefault(x => x.Id == id));
 
-            var movieService = new MovieService(_movieRepositoryMock.Object, _actorRepositoryMock.Object);
+            var movieService = new MovieService(_movieRepositoryMock.Object, _actorRepositoryMock.Object, _actorBioGatewayMock.Object);
 
             // Act
             var result = movieService.GetMoviesById(movieId);
@@ -86,7 +89,7 @@ namespace MovieStoreB.Tests
                     .Returns((string id) =>
                         _movies.FirstOrDefault(x => x.Id == id));
 
-            var movieService = new MovieService(_movieRepositoryMock.Object, _actorRepositoryMock.Object);
+            var movieService = new MovieService(_movieRepositoryMock.Object, _actorRepositoryMock.Object, _actorBioGatewayMock.Object);
 
             // Act
             var result = movieService.GetMoviesById(movieId);
@@ -105,7 +108,7 @@ namespace MovieStoreB.Tests
                     .Returns((string id) =>
                         _movies.First(x => x.Id == id));
 
-            var movieService = new MovieService(_movieRepositoryMock.Object, _actorRepositoryMock.Object);
+            var movieService = new MovieService(_movieRepositoryMock.Object, _actorRepositoryMock.Object, _actorBioGatewayMock.Object);
 
             // Act
             var result = movieService.GetMoviesById(movieId);
